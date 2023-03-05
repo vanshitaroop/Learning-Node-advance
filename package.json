@@ -1,14 +1,16 @@
 {
   "name": "complete-node-js",
+  "type": "module",
   "version": "1.0.0",
   "description": "Learning node js completely",
   "main": "index.js",
-  "type": "module",
+  
   "keywords": [
     "node",
     "package",
     "npm"
   ],
+
   "author": "vanshita",
   "license": "ISC",
   "dependencies": {
