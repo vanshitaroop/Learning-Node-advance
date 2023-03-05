@@ -8,5 +8,10 @@
     </head>
     <body>
         Welcome <%= user.name %>
+        <ul>
+            <%user.skills.forEach((item)=>{ %>
+                <li><%= item %></li>
+            <%}) %> 
+        </ul>
     </body>
 </html>

@@ -6,28 +6,34 @@ const __dirname = path.dirname(__filename)
 
 const publipath = path.join(__dirname , "public");
 const app = express();
-app.set("view engine","ejs");
-
-
-// app.get('/',(req,res)=>{
-//     res.send('Home page');
-// });
-// app.get('/about',(req,res)=>{
-//     res.send("about page");
-// });
+// middleware 
+//alse we cannot use res.send and next at the same time 
+//next() is for passing  the control to the routes
+const reqfilter=(req,res,next)=>{
+    if(!req.query.age){
+        res.send("please provide age");
+    }
+    else if(req.query.age<18)
+    {
+        res.send("you cannot access this page");
+    }
+    else{
+        next();
+    }
+}
+app.use(reqfilter);
+//middleware over
+app.get('/',(req,res)=>{
+    res.send('Home page');
+});
+app.get('/about',(req,res)=>{
+    res.send("about page");
+});
 app.get("/about",(req,res)=>{
     res.sendFile(`${publipath}/about.html`);
 })
 
-app.get("/profile",(_,res)=>{
-    const user={
-        name:"vanshita",
-        email:"test@gmail.com",
-        city:"ahmedabad"
-    }
-    res.render("temp",{user});
 
-});
 app.get("*",(req,res)=>{
     res.sendFile(`${publipath}/notfound.html`);
 })
