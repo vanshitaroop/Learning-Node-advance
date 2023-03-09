@@ -1,14 +1,15 @@
-import dbConnect from "./mongodb.js"
-//option 1
-// dbConnect().then((resp)=>{
-//     resp.find({name:"vanshita"}).toArray().then((data)=>{
-//         console.log(data);
-//     })
-// })
-//option 2 modern
-const main = async()=>{
-    let data = await dbConnect();
-    data = await data.find({name:"kanchan"}).toArray();
-    console.warn(data)
-} 
+import mongoose from "mongoose";
+
+const main=async()=>{
+    await mongoose.connect("mongodb://localhost:27017/testing");
+    const studentachema = new mongoose.Schema({
+        name:String,
+        age:Number
+    });
+    const studentmodel = mongoose.model('tests',studentachema);
+    let data =  new studentmodel({name:"The Vanshita roopchandani",clg:"LJIET"});
+    let result = await data.save();
+    console.log(result);
+
+}
 main();
